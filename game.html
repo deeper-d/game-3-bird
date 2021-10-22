@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>game 2 brick </title>
+    <style>
+        canvas {
+            border: 1px solid gray;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <canvas id="id-canvas" width="400" height="600"></canvas>
+        <br/>
+        <!-- <input id='id-input-speed' type="range" > -->
+
+    </div>
+    <script src="guagame/utils.js"></script>
+    <script src="guagame/gua_game.js"></script>
+    <script src="guagame/gua_scene.js"></script>
+    <script src="guagame/gua_image.js"></script>
+    <script src="guagame/gua_particle_system.js"></script>
+    <script src="guagame/gua_lable.js"></script>
+    <script src="guagame/gua_animation.js"></script>
+
+
+    <script src="scene/main/level.js"></script>
+    <script src='scene/main/scene.js'></script>
+    <script src='scene/end/scene_end.js'></script>
+    <script src='scene/title/scene_title.js'></script>
+
+
+    <script src='main.js'></script>
+
+
+    <script>
+        /*
+        *
+        第一集
+        1.根据 GuaScene 重构 scene.js 的类 20：42
+        2.抽离 GuaImage 类 21：28
+        3.抽离 Player 类 25：59
+            ** 飞机就相当于是打砖块游戏里的挡板
+        4.scene.js 抽离 elements， 在父类 GuaScene 里自动draw元素 36:20 
+            ** 目的是为了自动化
+        5.进一步优化，把抽离 elements 到父类 GuaScene 里 40:33
+        ** 写高等语言、用什么比人不知道的技巧，其实没意义
+           重要的是是怎么写
+
+        第二集
+        1. 抽离 Player 类
+        2. 创建 Enemy 类  09：40
+           一味的追求代码酷炫是小学生行为，你的代码不是一个人看，整个团队还得看
+        3. 发子弹 25：11
+        4. 子弹 cooldown 30:49
+        5. 动态调整各种速速 32:16
+
+        第三集
+        1. 爆炸效果 粒子系统 03：20
+        ** 工作中也应该复制粘贴，有意义的部分自己写，没意义的部分复制粘贴
+        ?? 遗留一个问题：怎么做到子弹打到分机，产生爆炸并且分机和子弹消失？？
+        
+
+        第四集 游戏中的动画（10）
+        1. 把particle system / gua lable 从scene_title里单独拎出去 03：00
+        2.讲解动画原理 04：30
+        3.添加走路的动画 gua_animation.js ~16:40
+        4.给动画添加多种状态 19：00
+          -- 按move时改变动画 29：19
+
+    
+        * */
+    </script>
+
+</body>
+</html>
