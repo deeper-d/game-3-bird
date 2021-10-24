@@ -78,8 +78,7 @@ class Guagame {
             if (status === 'down') {
                 // 如果按键被按下，调用注册的 action
                 g.actions[k]('down')
-                
-            } else {
+            } else if (status === 'up') {
                 g.actions[k]('up')
                 // 删掉这个key的状态
                 g.keydowns[k] = null

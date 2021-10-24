@@ -75,9 +75,10 @@ var __mian = function () {
         run10: 'img/run/r10.png',
         // birds
         sky: 'img/bird/sky.png',
-        bird1: 'img/bird/bird1.png',
-        bird2: 'img/bird/bird2.png',
-        bird3: 'img/bird/bird3.png',
+        bird1: 'img/bird/b1.png',
+        bird2: 'img/bird/b2.png',
+        bird3: 'img/bird/b3.png',
+        ground: 'img/bird/ground.png',
     }
 
     var game = Guagame.instance(20, images, (g) => {
