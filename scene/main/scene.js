@@ -1,7 +1,4 @@
-const randomBetween = (start, end) => {
-    var n  = Math.random() * (end - start + 1)
-    return Math.floor(n + start)
-}
+
 
 class Cloud extends GuaImage {
     constructor(game) {
