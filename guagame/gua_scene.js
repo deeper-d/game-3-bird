@@ -24,10 +24,13 @@ class GuaScene {
     }
 
     update() {
-        for (let ele of this.elements) {
-            // this.game.drawImage(ele)
-            ele.draw()
-            ele.update()
+        for (var e of this.elements) {
+            e.debug && e.debug()
+        }
+
+        for (let e of this.elements) {
+            // e.draw()
+            e.update()
         }
     }
 }

@@ -21,3 +21,11 @@ var randomBetween = (start, end) => {
     var n  = Math.random() * (end - start + 1)
     return Math.floor(n + start)
 }
+
+var es = sel => {
+    return document.querySelectorAll(sel)
+}
+var e = sel => {
+    console.log(sel)
+    return document.querySelector(sel)
+}

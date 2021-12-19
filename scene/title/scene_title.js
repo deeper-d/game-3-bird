@@ -3,12 +3,12 @@ class Pipes {
         this.game = game
         this.pipes = []
         this.pipeSpace = 150
-        this.pipeGap = 200
+        this.管子横向间距 = 200
         this.columnsOfPipe = 3
         for (var i = 0; i < this.columnsOfPipe; i++) {
             var p1 = GuaImage.new(game, 'pipe')
             p1.flipY = true
-            p1.x = 500 + i * this.pipeGap
+            p1.x = 500 + i * this.管子横向间距
             var p2 = GuaImage.new(game, 'pipe')
             p2.x = p1.x
            this.resetPipesPosition(p1, p2)
@@ -24,16 +24,28 @@ class Pipes {
     }
 
     resetPipesPosition(p1, p2) {
-        p1.y = randomBetween(50, 200)
+        p1.y = randomBetween(80, 200)
         p2.y = p1.y + p1.h + this.pipeSpace
 
     }
 
+    debug() {
+        this.管子横向间距 = config.管子横向间距.value
+        this.pipeSpace = config.pipe_space.value
+    }
+
     update() {
-        for (const p of this.pipes) {
-            p.x -= 5
-            if (p.x <= -100) {
-                p.x += this.pipeGap * this.columnsOfPipe
+        for (var i = 0; i < this.pipes.length / 2; i += 2) {
+            var p1 = this.pipes[i]
+            var p2 = this.pipes[i+1]
+            p1.x -= 5
+            p2.x -= 5
+            if (p1.x <= -100) {
+                p1.x += this.管子横向间距 * this.columnsOfPipe
+            }
+            if (p2.x <= -100) {
+                p2.x += this.管子横向间距 * this.columnsOfPipe
+                this.resetPipesPosition(p1, p2)
             }
         }
 
@@ -89,6 +101,7 @@ class SceneTitle extends GuaScene {
         b.x = 80
         b.y = 100
         this.bird = b
+        this.birdSpeed = 5
         this.addElement(b)
         this.setupInputs()
 
@@ -104,15 +117,19 @@ class SceneTitle extends GuaScene {
         var self = this
         var bird = this.bird
         self.game.registerAction('a', function (keyStatus) {
-            bird.move(-5, keyStatus)
+            bird.move(-self.birdSpeed , keyStatus)
         })
         self.game.registerAction('d', function (keyStatus) {
-            bird.move(5, keyStatus)
+            bird.move(self.birdSpeed, keyStatus)
         })
         self.game.registerAction('j', function (keyStatus) {
             console.log('keyStatus =', keyStatus)
             bird.jump()
         })
+    }
+
+    debug() {
+        this.birdSpeed = config.bird_speed.value
     }
 
     draw() {
@@ -133,6 +150,12 @@ class SceneTitle extends GuaScene {
         for (let i = 0; i < 30; i++) {
             var g = this.grounds[i]
             g.x += offset
+        }
+
+        // 检测是否碰撞
+        console.log('this.pipe : ', this.pipe)
+        for (let p of this.pipe.pipes) {
+            console.log('p ==', p)
         }
     }
 }
