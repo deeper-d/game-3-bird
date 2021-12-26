@@ -11,9 +11,9 @@ class Pipes {
             p1.x = 500 + i * this.管子横向间距
             var p2 = GuaImage.new(game, 'pipe')
             p2.x = p1.x
-           this.resetPipesPosition(p1, p2)
-           this.pipes.push(p1)
-           this.pipes.push(p2)
+            this.resetPipesPosition(p1, p2)
+            this.pipes.push(p1)
+            this.pipes.push(p2)
         }
 
 
@@ -24,9 +24,8 @@ class Pipes {
     }
 
     resetPipesPosition(p1, p2) {
-        p1.y = randomBetween(80, 200)
+        p1.y = randomBetween(-160, 0)
         p2.y = p1.y + p1.h + this.pipeSpace
-
     }
 
     debug() {
@@ -68,6 +67,14 @@ class Pipes {
         }
        
     }
+
+    collide(bird) {
+        for (let p of this.pipes) {
+            if (rectIntersects(bird, p)) {
+                return true
+            }
+        }
+    }
 }
 
 class SceneTitle extends GuaScene {
@@ -103,6 +110,10 @@ class SceneTitle extends GuaScene {
         this.bird = b
         this.birdSpeed = 5
         this.addElement(b)
+        // b.update = () => {
+        //     // console.log(' ---- b.update ----', b)
+        // }
+
         this.setupInputs()
 
     }
@@ -123,7 +134,6 @@ class SceneTitle extends GuaScene {
             bird.move(self.birdSpeed, keyStatus)
         })
         self.game.registerAction('j', function (keyStatus) {
-            console.log('keyStatus =', keyStatus)
             bird.jump()
         })
     }
@@ -151,11 +161,11 @@ class SceneTitle extends GuaScene {
             var g = this.grounds[i]
             g.x += offset
         }
-
-        // 检测是否碰撞
-        console.log('this.pipe : ', this.pipe)
-        for (let p of this.pipe.pipes) {
-            console.log('p ==', p)
+        // 判断相撞
+        if (this.pipe.collide(this.bird)){
+            console.log('------------ 1111')
+            var scene_end = new SceneEnd(this.games)
+            this.game.runWithScene(scene_end)
         }
     }
 }

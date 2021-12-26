@@ -13,7 +13,7 @@ var loadLevel = function(n) {
     return blocks
 }
 
-var __mian = function () {
+var __mian = async function () {
     var enableDebugMode = function(enable) {
         if (!enable) {
             return
@@ -44,13 +44,47 @@ var __mian = function () {
         pipe: 'img/bird/pipe_up.png',
     }
 
-    var game = Guagame.instance(20, images, (g) => {
-        // var scene = Scene.new(g)
-        var scene = SceneTitle.new(g)
-        g.runWithScene(scene)
+    function loadImg(images, callback) {
+        let promiseQueque = Object.keys(images).map(key => {
+            return new Promise((resolve, reject) => {
+                let imgSrc = images[key]
+                console.log('imgSrc', imgSrc)
+                var img = new Image()
+                img.src = imgSrc
+                console.log(img)
+                img.addEventListener('load', () => {
+                    resolve(img);
+                })
+            })
+        })
+        Promise.all(promiseQueque).then((result) => {
+            console.log('---- 载入图片成功 ----', result)  
+            callback()
+          }).catch((error) => {
+            console.log(error)
+          })
+
+    }
+
+    await loadImg(images, () => {
+
+        var game = Guagame.instance(20, images, (g) => {
+            // var scene = Scene.new(g)
+            var scene = SceneTitle.new(g)
+            g.runWithScene(scene)
+        })
+    
+        enableDebugMode(true)
+
     })
 
-    enableDebugMode(true)
+        // var game = Guagame.instance(20, images, (g) => {
+        //     // var scene = Scene.new(g)
+        //     var scene = SceneTitle.new(g)
+        //     g.runWithScene(scene)
+        // })
+    
+        // enableDebugMode(true)
 
 }
 

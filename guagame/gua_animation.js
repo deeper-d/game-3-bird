@@ -1,5 +1,5 @@
 class GuaAnimation {
-    constructor(game) {
+    constructor(game, w, h) {
         this.game = game
         // 为了省事，这里硬编码 hard code一套动画
         this.animations = {
@@ -105,18 +105,6 @@ class GuaAnimation {
             this.flipX = keydowns['a'] === 'down'
     
         } 
-        // else if (!keydowns['a'] && !keydowns['d']) {
-
-        // } 
-        
-        // if (keyStatus === 'down') {
-        //     console.log(111111111)
-        //     this.changeAnimation('run')
-
-        // } else if (keyStatus === 'up') {
-        //     console.log(222222222)
-        //     this.changeAnimation('idle')
-        // }
        
     }
 

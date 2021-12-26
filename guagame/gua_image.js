@@ -1,7 +1,8 @@
 class GuaImage {
-    constructor(game, name) {
+    constructor (game, name) {
         this.game = game
         this.texture = game.textureByName(name)
+        console.log('this.texture: ', this.texture.width, this.texture.height)
         this.x = 0
         this.y = 0
         this.w = this.texture.width
