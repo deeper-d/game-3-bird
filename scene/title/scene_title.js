@@ -164,7 +164,7 @@ class SceneTitle extends GuaScene {
         // 判断相撞
         if (this.pipe.collide(this.bird)){
             console.log('------------ 1111')
-            var scene_end = new SceneEnd(this.games)
+            var scene_end = new SceneEnd(this.game)
             this.game.runWithScene(scene_end)
         }
     }
