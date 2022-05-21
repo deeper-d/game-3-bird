@@ -37,6 +37,9 @@ var __mian = async function () {
     var images = {
         // birds
         sky: 'img/bird/sky.png',
+        end: 'img/bird/sky.jpg',
+        title: 'img/bird/title.jpeg',
+        bg: 'img/bird/bg.png',
         bird1: 'img/bird/b1.png',
         bird2: 'img/bird/b2.png',
         bird3: 'img/bird/b3.png',
@@ -48,10 +51,8 @@ var __mian = async function () {
         let promiseQueque = Object.keys(images).map(key => {
             return new Promise((resolve, reject) => {
                 let imgSrc = images[key]
-                console.log('imgSrc', imgSrc)
                 var img = new Image()
                 img.src = imgSrc
-                console.log(img)
                 img.addEventListener('load', () => {
                     resolve(img);
                 })
@@ -69,22 +70,14 @@ var __mian = async function () {
     await loadImg(images, () => {
 
         var game = Guagame.instance(20, images, (g) => {
-            // var scene = Scene.new(g)
-            var scene = SceneTitle.new(g)
+            var scene = Scene.new(g)
+            // var scene = SceneTitle.new(g)
             g.runWithScene(scene)
         })
     
-        enableDebugMode(true)
+        // enableDebugMode(true)
 
     })
-
-        // var game = Guagame.instance(20, images, (g) => {
-        //     // var scene = Scene.new(g)
-        //     var scene = SceneTitle.new(g)
-        //     g.runWithScene(scene)
-        // })
-    
-        // enableDebugMode(true)
 
 }
 

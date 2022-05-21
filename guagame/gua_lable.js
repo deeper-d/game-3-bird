@@ -9,7 +9,7 @@ class GuaLable {
     }
 
     draw() {
-        this.game.context.fillText(this.text, 100, 180)
+        this.game.context.fillText(this.text, 140, 500)
 
     }
 

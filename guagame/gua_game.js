@@ -41,7 +41,7 @@ class Guagame {
     }
 
     drawImage(guaImage)  {
-        this.context.drawImage(guaImage.texture, guaImage.x, guaImage.y)
+        this.context.drawImage(guaImage.texture, guaImage.x, guaImage.y, 400, 600)
     }
 
     registerAction(key, callback) {

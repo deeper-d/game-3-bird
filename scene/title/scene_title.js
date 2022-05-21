@@ -2,8 +2,8 @@ class Pipes {
     constructor(game) {
         this.game = game
         this.pipes = []
-        this.pipeSpace = 150
-        this.管子横向间距 = 200
+        this.pipeSpace = 260
+        this.管子横向间距 = 300
         this.columnsOfPipe = 3
         for (var i = 0; i < this.columnsOfPipe; i++) {
             var p1 = GuaImage.new(game, 'pipe')
@@ -79,7 +79,6 @@ class Pipes {
 
 class SceneTitle extends GuaScene {
     constructor(game) {
-        console.log('SceneTitle')
         super(game)
         this.game = game
         this.setup(game);
@@ -94,7 +93,7 @@ class SceneTitle extends GuaScene {
 
         // 循环移动的地面
         this.grounds = []
-        for (let i = 0; i < 30; i++) {
+        for (let i = 0; i < 200; i++) {
             var g = GuaImage.new(game, 'ground')
             g.x = i * 19
             g.y = 540
@@ -163,7 +162,6 @@ class SceneTitle extends GuaScene {
         }
         // 判断相撞
         if (this.pipe.collide(this.bird)){
-            console.log('------------ 1111')
             var scene_end = new SceneEnd(this.game)
             this.game.runWithScene(scene_end)
         }

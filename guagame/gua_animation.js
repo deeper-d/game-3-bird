@@ -65,7 +65,7 @@ class GuaAnimation {
     }
 
     jump() {
-        this.vy = -5
+        this.vy = -4
         this.ratation = -45
     }
 
@@ -95,7 +95,6 @@ class GuaAnimation {
     }
 
     move(x, keyStatus, key) {
-        console.log('--------------keyStatus ---- key', keyStatus, key, this.game.keydowns)
         if (keyStatus === 'down') {
             this.x += x
         }
