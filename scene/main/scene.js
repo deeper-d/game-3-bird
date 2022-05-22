@@ -24,7 +24,7 @@ class Pipes {
     }
 
     resetPipesPosition(p1, p2) {
-        p1.y = randomBetween(-160, 0)
+        p1.y = randomBetween(-200, 0)
         p2.y = p1.y + p1.h + this.pipeSpace
     }
 
@@ -81,6 +81,7 @@ class Scene extends GuaScene {
     constructor(game) {
         super(game)
         this.game = game
+        this.gameover = false
 
         // bg
         var sky = GuaImage.new(game, 'sky')
@@ -132,6 +133,14 @@ class Scene extends GuaScene {
     }
 
     update() {
+        if (this.gameover) {
+            this.bird.y += 20
+            if (this.bird.y > 500) {
+                var scene_end = new SceneEnd(this.game)
+                this.game.replaceScene(scene_end)
+            }
+            return
+        }
         // TODO:为什么这里让地面滚动需要调用父类的update??
         super.update()
 
@@ -151,8 +160,7 @@ class Scene extends GuaScene {
         
         // 判断相撞
         if (this.pipe.collide(this.bird)){
-            var scene_end = new SceneEnd(this.game)
-            this.game.replaceScene(scene_end)
+            this.gameover = true
         }
     }
 }
