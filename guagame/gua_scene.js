@@ -17,18 +17,18 @@ class GuaScene {
     draw() {
         for (let ele of this.elements) {
             ele.draw()
-            ele.update()
         }
 
     }
 
     update() {
+        this.debug && this.debug()
+        // debug 模式
         for (var e of this.elements) {
             e.debug && e.debug()
         }
 
         for (let e of this.elements) {
-            e.draw()
             e.update()
         }
     }

@@ -1,5 +1,6 @@
 class GuaImage {
-    constructor (game, name) {
+    constructor (game, name, stretch) {
+        this.stretch = stretch
         this.game = game
         this.texture = game.textureByName(name)
         this.x = 0
@@ -11,13 +12,13 @@ class GuaImage {
         this.rotation = 0
     }
 
-    static new(game, name) {
-        var instance = new this(game, name)
+    static new(game, name, strech) {
+        var instance = new this(game, name, strech)
         return instance
     }
 
     draw() {
-        this.game.drawImage(this)
+        this.game.drawImage(this, this.stretch)
     }
 
     update() {

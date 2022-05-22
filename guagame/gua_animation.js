@@ -3,21 +3,9 @@ class GuaAnimation {
         this.game = game
         // 为了省事，这里硬编码 hard code一套动画
         this.animations = {
-            idle: [],
-            run: [],
             bird: []
         }
 
-        for (let index = 1; index < 11; index++) {
-            var name = `run${index}`;
-            var t = game.textureByName(name);
-            this.animations['run'].push(t)
-        }
-        for (let index = 1; index < 5; index++) {
-            var name = `idle${index}`;
-            var t = game.textureByName(name);
-            this.animations['idle'].push(t)
-        }
         for (let index = 1; index <= 3; index++) {
             var name = `bird${index}`;
             var t = game.textureByName(name);
@@ -33,7 +21,7 @@ class GuaAnimation {
         // 反转图片
         this.flipX = false
         this.ratation = 0
-        this.alpha = 1
+        this.alpha = 1 // 透明度
         // 重力和加速度
         this.gy = 10
         this.vy = 0
@@ -46,27 +34,6 @@ class GuaAnimation {
 
     frames() {
         return this.animations[this.animationName]
-    }
-
-    draw() {
-        var context = this.game.context
-        context.save()
-        var w2 = this.w / 2
-        var h2 = this.h / 2
-        context.translate(this.x + w2, this.y + h2)
-        if (this.flipX) {
-            context.scale(-1, 1)
-        }
-        context.globalAlpha = this.alpha
-        context.rotate(this.ratation * Math.PI / 180)
-        context.translate(-w2, -h2)
-        context.drawImage(this.texture, 0, 0)
-        context.restore()
-    }
-
-    jump() {
-        this.vy = -4
-        this.ratation = -45
     }
 
     update() {
@@ -94,17 +61,30 @@ class GuaAnimation {
         }
     }
 
-    move(x, keyStatus, key) {
-        if (keyStatus === 'down') {
-            this.x += x
+    draw() {
+        var context = this.game.context
+        context.save()
+        var w2 = this.w / 2
+        var h2 = this.h / 2
+        context.translate(this.x + w2, this.y + h2)
+        if (this.flipX) {
+            context.scale(-1, 1)
         }
-        let keydowns = this.game.keydowns
-        // TODO:不知道为啥这里有个bug, 只判断一个是不起作用的，要两个都判断
-        if (keydowns['a'] === 'down' || keydowns['d'] === 'down') {
-            this.flipX = keydowns['a'] === 'down'
-    
-        } 
-       
+        context.globalAlpha = this.alpha
+        context.rotate(this.ratation * Math.PI / 180)
+        context.translate(-w2, -h2)
+        context.drawImage(this.texture, 0, 0)
+        context.restore()
+    }
+
+    jump() {
+        this.vy = -4
+        this.ratation = -45
+    }
+
+    move(x, keyStatus) {
+        this.x += x
+        this.flipX = x < 0
     }
 
     changeAnimation(name) {

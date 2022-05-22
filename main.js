@@ -45,6 +45,8 @@ var __mian = async function () {
         bird3: 'img/bird/b3.png',
         ground: 'img/bird/ground.png',
         pipe: 'img/bird/pipe_up.png',
+        'game-start': 'img/bird/get-ready.png',
+        'game-over': 'img/bird/game-over.png',
     }
 
     function loadImg(images, callback) {
@@ -70,8 +72,8 @@ var __mian = async function () {
     await loadImg(images, () => {
 
         var game = Guagame.instance(20, images, (g) => {
-            var scene = Scene.new(g)
-            // var scene = SceneTitle.new(g)
+            // var scene = Scene.new(g)
+            var scene = SceneTitle.new(g)
             g.runWithScene(scene)
         })
     

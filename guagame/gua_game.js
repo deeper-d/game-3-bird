@@ -40,8 +40,12 @@ class Guagame {
         this.scene.draw()
     }
 
-    drawImage(guaImage)  {
-        this.context.drawImage(guaImage.texture, guaImage.x, guaImage.y, 400, 600)
+    drawImage(guaImage, stretch)  {
+        if (stretch) {
+            this.context.drawImage(guaImage.texture, guaImage.x, guaImage.y, 400, 600)
+        } else {
+            this.context.drawImage(guaImage.texture, guaImage.x, guaImage.y)
+        }
     }
 
     registerAction(key, callback) {

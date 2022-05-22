@@ -37,10 +37,21 @@
 
     <script src='config.js'></script>
 
-
     <script src='main.js'></script>
 
     <script>
+
+        var es =  sel => document.querySelectorAll(sel)
+
+        var bindAll = (sel, eventName, callback) => {
+            var l = es(sel)
+            for (let input of l) {
+                input.addEventListener(eventName, () => {
+                    callback(event)
+                })
+            }
+        }
+
         var templateControl = function(key, item) {
             var t = `
             <div>
@@ -62,8 +73,6 @@
         
         var insertControls = function() {
             var div = e('.gua-controls')
-            console.log('e', e)
-            console.log('div ==', div)
             var keys = Object.keys(config)
             for (var k of keys) {
                 var item = config[k]
@@ -74,7 +83,15 @@
         }
 
         var bindEvents = function() {
-
+            bindAll('.gua-auto-slider', 'input', () => {
+                var target = event.target
+                var bindVar = target.dataset.value
+                var v = target.value
+                eval(bindVar + '.value=' + v)
+                //
+                var label = target.closest('label').querySelector('.gua-label')
+                label.innerText = v
+            })
         }
 
         var __main = function() {
@@ -94,9 +111,16 @@
         2.给 bird 做动画 13:53
             - 旋转功能，更新角度 18：55
             - drawImage 还可以指定xy画图
+        ** 写程序不是写英语
         ** 新语言类似于新装备，厉害的人不是只追求外在的装备
-        3.动态调整pipe的高度 20：00
-        4.配置 debug 模式 38：00
+
+        第二集
+        1.加管子
+        2.抽离配置文件 config 21: 00
+          动态调整 pipe 的高度 
+          ** 混日子的人是追求热点
+          ** 有技术追求的人应该追求正确的东西？？
+        3.配置 scene debug 模式 38：00
     
         * */
     </script>
