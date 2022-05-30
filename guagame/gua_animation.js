@@ -87,6 +87,15 @@ class GuaAnimation {
         this.flipX = x < 0
     }
 
+    falldown() {
+        this.y += 20
+        if (this.y > 500) {
+            var scene_end = new SceneEnd(this.game)
+            this.game.replaceScene(scene_end)
+            return
+        }
+    }
+
     changeAnimation(name) {
         this.animationName = name
 

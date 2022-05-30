@@ -5,6 +5,7 @@ class Pipes {
         this.pipeSpace = 260 
         this.管子横向间距 = 300
         this.columnsOfPipe = 3
+        this.scoreCooldown = 10
 
         for (var i = 0; i < this.columnsOfPipe; i++) {
             var p1 = GuaImage.new(game, 'pipe')
@@ -29,6 +30,7 @@ class Pipes {
     }
 
     update() {
+        this.scoreCooldown--
         for (var i = 0; i < this.pipes.length / 2; i += 2) {
             var p1 = this.pipes[i]
             var p2 = this.pipes[i+1]
@@ -71,9 +73,66 @@ class Pipes {
         }
     }
 
+    score(bird, callback) {
+        if (this.scoreCooldown <= 0) {
+            this.scoreCooldown = 10
+            for (let i = 0; i < this.pipes.length; i++) {
+                let p = this.pipes[i]
+                if (i % 2) {
+                    if (bird.x > p.x && bird.x < p.x + p.w)  {
+                        this.scene.score += 1
+                    }
+                } 
+         
+            }
+        }
+    }
+
     debug() {
         this.管子横向间距 = config.管子横向间距.value
         this.pipeSpace = config.pipe_space.value
+    }
+}
+
+class Score {
+    constructor(game) {
+        this.game = game
+        this.score = 0
+        this.scoreCooldown = 10
+    }
+
+    static new(game) {
+        return new this(game)
+    }
+
+    update() {
+        this.scoreCooldown--
+        this.addScore()
+    }
+
+    draw() {
+        var canvas = document.querySelector('#id-score')
+        var context = canvas.getContext('2d')
+        context.clearRect(0, 0, 400, 600);  
+        context.fillText('得分：' + this.score, 20, 580)
+    }
+
+    addScore() {
+        if (this.scoreCooldown <= 0) {
+            this.scoreCooldown = 10
+            let pipes = this.scene.pipe.pipes
+            let bird =  this.scene.bird
+            for (let i = 0; i < pipes.length; i++) {
+                let p = pipes[i]
+                if (i % 2) {
+                    if (bird.x > p.x && bird.x < p.x + p.w)  {
+                        this.score += 1
+                        console.log('得分：', this.score)
+                    }
+                } 
+         
+            }
+        }
     }
 }
 
@@ -110,6 +169,13 @@ class Scene extends GuaScene {
         this.birdSpeed = 5
         this.addElement(b)
 
+        // score
+        // var 得分 = GuaLable.new(this.game, '得分：')
+        // this.addElement(得分)
+        var s = Score.new(game)
+        this.addElement(s) 
+
+        // set input event
         this.setupInputs()
 
     }
@@ -134,13 +200,10 @@ class Scene extends GuaScene {
 
     update() {
         if (this.gameover) {
-            this.bird.y += 20
-            if (this.bird.y > 500) {
-                var scene_end = new SceneEnd(this.game)
-                this.game.replaceScene(scene_end)
-            }
+            this.bird.falldown()
             return
         }
+
         // TODO:为什么这里让地面滚动需要调用父类的update??
         super.update()
 
@@ -155,12 +218,11 @@ class Scene extends GuaScene {
             var g = this.grounds[i]
             g.x += offset
         }
-
-       
         
         // 判断相撞
         if (this.pipe.collide(this.bird)){
             this.gameover = true
+            return
         }
     }
 }
