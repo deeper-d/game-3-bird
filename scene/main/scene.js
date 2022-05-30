@@ -115,6 +115,7 @@ class Score {
         var context = canvas.getContext('2d')
         context.clearRect(0, 0, 400, 600);  
         context.fillText('得分：' + this.score, 20, 580)
+    
     }
 
     addScore() {
