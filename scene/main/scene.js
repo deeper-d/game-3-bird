@@ -127,7 +127,6 @@ class Score {
                 if (i % 2) {
                     if (bird.x > p.x && bird.x < p.x + p.w)  {
                         this.score += 1
-                        // console.log('得分：', this.score)
                     }
                 } 
          
