@@ -115,7 +115,6 @@ class Score {
         var context = canvas.getContext('2d')
         context.clearRect(0, 0, 400, 600);  
         context.fillText('得分：' + this.score, 20, 580)
-    
     }
 
     addScore() {
@@ -128,7 +127,7 @@ class Score {
                 if (i % 2) {
                     if (bird.x > p.x && bird.x < p.x + p.w)  {
                         this.score += 1
-                        console.log('得分：', this.score)
+                        // console.log('得分：', this.score)
                     }
                 } 
          
